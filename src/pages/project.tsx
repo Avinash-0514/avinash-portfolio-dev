@@ -1,135 +1,117 @@
-import PageContainer from "../components/PageContainer";
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  Chip,
+  Container,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { projects } from "../data/project";
 
 function Projects() {
   return (
-    <PageContainer>
-      <div style={{ maxWidth: "900px", margin: "0 auto" }}>
-        <h1 style={{ marginBottom: "12px" }}>Projects</h1>
+    <Container maxWidth="lg" sx={{ py: 6 }}>
+      <Box sx={{ maxWidth: 960, mx: "auto" }}>
+        <Box sx={{ mb: 4 }}>
+          <Typography variant="h2" sx={{ mb: 1.5 }}>
+            Projects
+          </Typography>
 
-        <p
-          style={{
-            color: "#6b7280",
-            fontSize: "18px",
-            lineHeight: 1.7,
-            marginBottom: "32px",
-          }}
-        >
-          A selection of my work across machine learning, software engineering,
-          research, and product ideas.
-        </p>
+          <Typography
+            variant="body1"
+            sx={{
+              color: "text.secondary",
+              fontSize: "1.1rem",
+              maxWidth: 760,
+            }}
+          >
+            A selection of my work across machine learning, software
+            engineering, research, and product ideas.
+          </Typography>
+        </Box>
 
-        <div style={{ display: "grid", gap: "20px" }}>
+        <Stack spacing={3}>
           {projects.map((project, index) => (
-            <article
+            <Card
               key={index}
-              style={{
-                padding: "24px",
-                border: "1px solid #e5e7eb",
-                borderRadius: "14px",
-                backgroundColor: "#ffffff",
+              elevation={0}
+              sx={{
+                border: "1px solid",
+                borderColor: "divider",
+                backgroundColor: "background.paper",
               }}
             >
-              <div
-                style={{
-                  display: "flex",
-                  gap: "12px",
-                  flexWrap: "wrap",
-                  marginBottom: "14px",
-                  fontSize: "14px",
-                  color: "#6b7280",
-                }}
-              >
-                <span
-                  style={{
-                    padding: "4px 10px",
-                    borderRadius: "999px",
-                    backgroundColor: "#f3f4f6",
-                    color: "#374151",
-                    fontWeight: 500,
-                  }}
+              <CardContent sx={{ p: 3 }}>
+                <Stack
+                  direction="row"
+                  spacing={1}
+                  useFlexGap
+                  flexWrap="wrap"
+                  sx={{ mb: 2 }}
                 >
-                  {project.type}
-                </span>
+                  <Chip label={project.type} size="small" color="secondary" />
+                  <Chip
+                    label={project.status}
+                    size="small"
+                    color="primary"
+                    variant="outlined"
+                  />
+                </Stack>
 
-                <span
-                  style={{
-                    padding: "4px 10px",
-                    borderRadius: "999px",
-                    backgroundColor: "#ecfeff",
-                    color: "#155e75",
-                    fontWeight: 500,
-                  }}
+                <Typography variant="h5" sx={{ mb: 1.5 }}>
+                  {project.title}
+                </Typography>
+
+                <Typography
+                  variant="body1"
+                  sx={{ color: "text.secondary", mb: 2 }}
                 >
-                  {project.status}
-                </span>
-              </div>
+                  {project.description}
+                </Typography>
 
-              <h2
-                style={{
-                  marginTop: 0,
-                  marginBottom: "12px",
-                  fontSize: "24px",
-                  lineHeight: 1.3,
-                }}
-              >
-                {project.title}
-              </h2>
-
-              <p
-                style={{
-                  color: "#4b5563",
-                  lineHeight: 1.7,
-                  marginBottom: "18px",
-                }}
-              >
-                {project.description}
-              </p>
-
-              <div
-                style={{
-                  display: "flex",
-                  flexWrap: "wrap",
-                  gap: "10px",
-                  marginBottom: "18px",
-                }}
-              >
-                {project.techStack.map((tech) => (
-                  <span
-                    key={tech}
-                    style={{
-                      padding: "6px 10px",
-                      borderRadius: "999px",
-                      backgroundColor: "#f9fafb",
-                      border: "1px solid #e5e7eb",
-                      fontSize: "14px",
-                      color: "#374151",
-                    }}
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-
-              {project.githubUrl && (
-                <a
-                  href={project.githubUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  style={{
-                    textDecoration: "none",
-                    color: "#2563eb",
-                    fontWeight: 600,
-                  }}
+                <Stack
+                  direction="row"
+                  spacing={1}
+                  useFlexGap
+                  flexWrap="wrap"
+                  sx={{ mb: 2.5 }}
                 >
-                  View on GitHub →
-                </a>
-              )}
-            </article>
+                  {project.techStack.map((tech) => (
+                    <Chip
+                      key={tech}
+                      label={tech}
+                      size="small"
+                      variant="outlined"
+                    />
+                  ))}
+                </Stack>
+
+                <Stack
+                  direction={{ xs: "column", sm: "row" }}
+                  spacing={1.5}
+                  alignItems={{ xs: "stretch", sm: "center" }}
+                >
+                  {project.githubUrl && (
+                    <Button
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      variant="contained"
+                    >
+                      View GitHub
+                    </Button>
+                  )}
+
+                  <Button variant="text">Project Details</Button>
+                </Stack>
+              </CardContent>
+            </Card>
           ))}
-        </div>
-      </div>
-    </PageContainer>
+        </Stack>
+      </Box>
+    </Container>
   );
 }
 

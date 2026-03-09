@@ -1,106 +1,91 @@
-import { Link } from "react-router-dom";
-import PageContainer from "../components/PageContainer";
+import { Link as RouterLink } from "react-router-dom";
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  Chip,
+  Container,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { blogPosts } from "../data/blogPost";
 
 function Blog() {
   return (
-    <PageContainer>
-      <div style={{ maxWidth: "820px", margin: "0 auto" }}>
-        <h1 style={{ marginBottom: "12px" }}>Blog</h1>
+    <Container maxWidth="lg" sx={{ py: 6 }}>
+      <Box sx={{ maxWidth: 900, mx: "auto" }}>
+        <Box sx={{ mb: 4 }}>
+          <Typography variant="h2" sx={{ mb: 1.5 }}>
+            Blog
+          </Typography>
 
-        <p
-          style={{
-            color: "#6b7280",
-            fontSize: "18px",
-            lineHeight: 1.7,
-            marginBottom: "32px",
-          }}
-        >
-          Notes from my learning journey in software development, machine
-          learning, computer vision, and research-driven engineering.
-        </p>
+          <Typography
+            variant="body1"
+            sx={{
+              color: "text.secondary",
+              fontSize: "1.1rem",
+              maxWidth: 760,
+            }}
+          >
+            Notes from my learning journey in software development, machine
+            learning, computer vision, and research-driven engineering.
+          </Typography>
+        </Box>
 
-        <div style={{ display: "grid", gap: "20px" }}>
+        <Stack spacing={3}>
           {blogPosts.map((post) => (
-            <article
+            <Card
               key={post.slug}
-              style={{
-                padding: "24px",
-                border: "1px solid #e5e7eb",
-                borderRadius: "14px",
-                backgroundColor: "#ffffff",
+              elevation={0}
+              sx={{
+                border: "1px solid",
+                borderColor: "divider",
+                backgroundColor: "background.paper",
               }}
             >
-              <div
-                style={{
-                  display: "flex",
-                  gap: "12px",
-                  flexWrap: "wrap",
-                  marginBottom: "14px",
-                  fontSize: "14px",
-                  color: "#6b7280",
-                }}
-              >
-                <span
-                  style={{
-                    padding: "4px 10px",
-                    borderRadius: "999px",
-                    backgroundColor: "#f3f4f6",
-                    color: "#374151",
-                    fontWeight: 500,
-                  }}
+              <CardContent sx={{ p: 3 }}>
+                <Stack
+                  direction="row"
+                  spacing={1}
+                  useFlexGap
+                  flexWrap="wrap"
+                  sx={{ mb: 2 }}
                 >
-                  {post.category}
-                </span>
+                  <Chip label={post.category} size="small" />
+                  <Chip label={post.date} size="small" variant="outlined" />
+                  <Chip
+                    label={post.readingTime}
+                    size="small"
+                    variant="outlined"
+                  />
+                </Stack>
 
-                <span>{post.date}</span>
-                <span>{post.readingTime}</span>
-              </div>
-
-              <h2
-                style={{
-                  marginTop: 0,
-                  marginBottom: "12px",
-                  fontSize: "24px",
-                  lineHeight: 1.3,
-                }}
-              >
-                <Link
-                  to={`/blog/${post.slug}`}
-                  style={{
-                    textDecoration: "none",
-                    color: "#111827",
-                  }}
-                >
+                <Typography variant="h5" sx={{ mb: 1.5 }}>
                   {post.title}
-                </Link>
-              </h2>
+                </Typography>
 
-              <p
-                style={{
-                  color: "#4b5563",
-                  lineHeight: 1.7,
-                  marginBottom: "18px",
-                }}
-              >
-                {post.description}
-              </p>
+                <Typography
+                  variant="body1"
+                  sx={{ color: "text.secondary", mb: 2 }}
+                >
+                  {post.description}
+                </Typography>
 
-              <Link
-                to={`/blog/${post.slug}`}
-                style={{
-                  textDecoration: "none",
-                  color: "#2563eb",
-                  fontWeight: 600,
-                }}
-              >
-                Read article →
-              </Link>
-            </article>
+                <Button
+                  component={RouterLink}
+                  to={`/blog/${post.slug}`}
+                  variant="text"
+                  sx={{ px: 0 }}
+                >
+                  Read article
+                </Button>
+              </CardContent>
+            </Card>
           ))}
-        </div>
-      </div>
-    </PageContainer>
+        </Stack>
+      </Box>
+    </Container>
   );
 }
 

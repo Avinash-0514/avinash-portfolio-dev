@@ -1,62 +1,74 @@
-import PageContainer from "../components/PageContainer";
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  Container,
+  Stack,
+  Typography,
+} from "@mui/material";
 
 function Contact() {
   return (
-    <PageContainer>
-      <h1>Contact</h1>
+    <Container maxWidth="md" sx={{ py: 6 }}>
+      <Box sx={{ textAlign: "center", mb: 4 }}>
+        <Typography variant="h2" sx={{ mb: 2 }}>
+          Contact
+        </Typography>
 
-      <p style={{ fontSize: "18px", lineHeight: 1.7, color: "#4b5563" }}>
-        I’m always interested in discussing software development, AI/ML
-        projects, research ideas, and engineering opportunities.
-      </p>
+        <Typography
+          variant="body1"
+          sx={{
+            color: "text.secondary",
+            fontSize: "1.1rem",
+            lineHeight: 1.8,
+          }}
+        >
+          If you'd like to discuss projects, research, or collaboration,
+          feel free to reach out.
+        </Typography>
+      </Box>
 
-      <div
-        style={{
-          marginTop: "24px",
-          display: "grid",
-          gap: "16px",
+      <Card
+        elevation={0}
+        sx={{
+          border: "1px solid",
+          borderColor: "divider",
+          backgroundColor: "background.paper",
         }}
       >
-        <div
-          style={{
-            padding: "20px",
-            border: "1px solid #e5e7eb",
-            borderRadius: "12px",
-          }}
-        >
-          <h3 style={{ marginTop: 0 }}>Email</h3>
-          <p style={{ marginBottom: 0, color: "#4b5563" }}>
-            your-email@example.com
-          </p>
-        </div>
+        <CardContent sx={{ p: 4 }}>
+          <Stack spacing={3} alignItems="center">
+            <Typography variant="h5">Get in Touch</Typography>
 
-        <div
-          style={{
-            padding: "20px",
-            border: "1px solid #e5e7eb",
-            borderRadius: "12px",
-          }}
-        >
-          <h3 style={{ marginTop: 0 }}>LinkedIn</h3>
-          <p style={{ marginBottom: 0, color: "#4b5563" }}>
-            Add your LinkedIn profile link here
-          </p>
-        </div>
+            <Stack spacing={2} alignItems="center">
+              <Button
+                variant="contained"
+                href="mailto:your-email@example.com"
+              >
+                Email Me
+              </Button>
 
-        <div
-          style={{
-            padding: "20px",
-            border: "1px solid #e5e7eb",
-            borderRadius: "12px",
-          }}
-        >
-          <h3 style={{ marginTop: 0 }}>GitHub</h3>
-          <p style={{ marginBottom: 0, color: "#4b5563" }}>
-            Add your GitHub profile link here
-          </p>
-        </div>
-      </div>
-    </PageContainer>
+              <Button
+                variant="outlined"
+                href="https://github.com/Avinash-0514"
+                target="_blank"
+              >
+                GitHub
+              </Button>
+
+              <Button
+                variant="outlined"
+                href="https://linkedin.com"
+                target="_blank"
+              >
+                LinkedIn
+              </Button>
+            </Stack>
+          </Stack>
+        </CardContent>
+      </Card>
+    </Container>
   );
 }
 

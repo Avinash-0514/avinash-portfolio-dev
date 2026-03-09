@@ -1,9 +1,15 @@
-import { Link, useParams } from "react-router-dom";
+import { Link as RouterLink, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
-import PageContainer from "../components/PageContainer";
+import {
+  Box,
+  Button,
+  Chip,
+  Container,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { blogPosts } from "../data/blogPost";
-import { blogContentStyle, markdownComponents } from "../styles/blogStyles";
 
 function BlogPost() {
   const { slug } = useParams();
@@ -30,41 +36,135 @@ function BlogPost() {
 
   if (!post) {
     return (
-      <PageContainer>
-        <h1>Post not found</h1>
-        <Link to="/blog">Back to Blog</Link>
-      </PageContainer>
+      <Container maxWidth="md" sx={{ py: 6 }}>
+        <Typography variant="h3" sx={{ mb: 2 }}>
+          Post not found
+        </Typography>
+
+        <Button component={RouterLink} to="/blog" variant="text" sx={{ px: 0 }}>
+          Back to Blog
+        </Button>
+      </Container>
     );
   }
 
   return (
-    <PageContainer>
-      <div style={{ maxWidth: "760px", margin: "0 auto" }}>
-        <Link
+    <Container maxWidth="md" sx={{ py: 6 }}>
+      <Box sx={{ maxWidth: 760, mx: "auto" }}>
+        <Button
+          component={RouterLink}
           to="/blog"
-          style={{
-            display: "inline-block",
-            marginBottom: "20px",
-            textDecoration: "none",
-            color: "#2563eb",
-          }}
+          variant="text"
+          sx={{ px: 0, mb: 3 }}
         >
           ← Back to Blog
-        </Link>
+        </Button>
 
-        <h1 style={{ fontSize: "42px", marginBottom: "12px", lineHeight: 1.2 }}>
+        <Stack
+          direction="row"
+          spacing={1}
+          useFlexGap
+          flexWrap="wrap"
+          sx={{ mb: 2 }}
+        >
+          <Chip label={post.category} size="small" />
+          <Chip label={post.date} size="small" variant="outlined" />
+          <Chip label={post.readingTime} size="small" variant="outlined" />
+        </Stack>
+
+        <Typography
+          variant="h2"
+          sx={{
+            mb: 2,
+            lineHeight: 1.2,
+          }}
+        >
           {post.title}
-        </h1>
+        </Typography>
 
-        <p style={{ color: "#6b7280", marginBottom: "32px" }}>{post.date}</p>
+        <Typography
+          variant="body1"
+          sx={{
+            color: "text.secondary",
+            fontSize: "1.05rem",
+            mb: 4,
+          }}
+        >
+          {post.description}
+        </Typography>
 
-        <article style={blogContentStyle}>
-          <ReactMarkdown components={markdownComponents}>
-            {content}
-          </ReactMarkdown>
-        </article>
-      </div>
-    </PageContainer>
+        <Box
+          sx={{
+            color: "text.primary",
+            "& h1": {
+              fontSize: "2.2rem",
+              fontWeight: 700,
+              lineHeight: 1.2,
+              mt: 4,
+              mb: 2,
+            },
+            "& h2": {
+              fontSize: "1.7rem",
+              fontWeight: 700,
+              lineHeight: 1.3,
+              mt: 4,
+              mb: 2,
+            },
+            "& h3": {
+              fontSize: "1.3rem",
+              fontWeight: 600,
+              lineHeight: 1.4,
+              mt: 3,
+              mb: 1.5,
+            },
+            "& p": {
+              fontSize: "1.05rem",
+              lineHeight: 1.9,
+              color: "text.secondary",
+              mb: 2,
+            },
+            "& ul, & ol": {
+              pl: 3,
+              mb: 2,
+              color: "text.secondary",
+            },
+            "& li": {
+              mb: 1,
+              lineHeight: 1.8,
+            },
+            "& code": {
+              backgroundColor: "grey.100",
+              px: 0.75,
+              py: 0.25,
+              borderRadius: 1,
+              fontSize: "0.95rem",
+              fontFamily: "monospace",
+            },
+            "& pre": {
+              backgroundColor: "grey.100",
+              p: 2,
+              borderRadius: 2,
+              overflowX: "auto",
+              mb: 2,
+            },
+            "& pre code": {
+              backgroundColor: "transparent",
+              p: 0,
+            },
+            "& blockquote": {
+              borderLeft: "4px solid",
+              borderColor: "primary.main",
+              pl: 2,
+              ml: 0,
+              color: "text.secondary",
+              fontStyle: "italic",
+            },
+          }}
+        >
+          <ReactMarkdown>{content}</ReactMarkdown>
+        </Box>
+      </Box>
+    </Container>
   );
 }
 
