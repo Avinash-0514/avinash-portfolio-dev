@@ -1,3 +1,4 @@
+import { Link as RouterLink } from "react-router-dom";
 import {
   Box,
   Button,
@@ -93,18 +94,24 @@ function Projects() {
                   spacing={1.5}
                   alignItems={{ xs: "stretch", sm: "center" }}
                 >
+                  <Button
+                    component={RouterLink}
+                    to={`/projects/${project.slug}`}
+                    variant="contained"
+                  >
+                    View Details
+                  </Button>
+
                   {project.githubUrl && (
                     <Button
                       href={project.githubUrl}
                       target="_blank"
                       rel="noreferrer"
-                      variant="contained"
+                      variant="outlined"
                     >
                       View GitHub
                     </Button>
                   )}
-
-                  <Button variant="text">Project Details</Button>
                 </Stack>
               </CardContent>
             </Card>
